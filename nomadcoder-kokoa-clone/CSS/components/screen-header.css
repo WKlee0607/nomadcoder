@@ -1,0 +1,18 @@
+.screen-header{
+    justify-content: space-between;
+    align-items: center;/*아이템들을 가로선에 맞추어 가운데 정렬하게 해줌*/
+    display: flex;
+    padding: var(--horizontal-space);
+    padding-top: 50px;
+    opacity: 90%;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+}
+.screen-header__title{
+    font-size: 32px;
+    font-weight: 600;
+}
+.screen-header__icons span{
+    margin-left: 25px;
+}

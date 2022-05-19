@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Kokoa Talk</title>
+</head>
+<body>
+    <!--상태바-->
+    <div class="status-bar">
+        <div class="status-bar__column">
+            <span>No Service</span>
+            <i class="fas fa-wifi"></i><!--To Do: Wifi Icon/font awesome -->
+        </div>
+        <div class="status-bar__column">
+            <span>18:43</span>
+        </div>
+        <div class="status-bar__column">
+            <i class="fas fa-lock"></i><!--Lock icon-->
+            <span>11%</span>
+            <i class="fas fa-battery-full fa-lg"></i><!-- Battery Icon/ fa-lg : 아이콘 크기 크게 해주는 class이름 - 뒤에는 lg(라지),s,m,l 쓸 쑤 있음-->
+            <i class="fas fa-bolt"></i><!-- Lightning Icon-->
+        </div>
+    </div>
+    <!--헤더부분-->
+    <header class="welcome-header">
+        <h1 class="welcome-header__title">Welcome to Kokoa Clone</h1>
+        <p class="welcome-header__text">if you have a Kokoa Account, log in with your email or phone number.</p>
+    </header>
+    <!--form부분 버튼을 포함한 모든 부분은 여기에 들감/
+    form의 2가지 속성: 
+    1.action: 어떤 페이지로 data를 보낼건지 지정ㄱㄴ
+    2.method: 1.post:백엔드 서버에 정보를 전송하는 방식(따로 설정한 서버가 있어야 사용가능) 2.get:보안에 취약-->
+    <form action="friends.html" method="get" id="login-form">
+        <input name="username" required type="text" placeholder="Email or phone number"/>
+        <input name="password" required type="password" placeholder="Password"/>
+        <input type="submit" value="Log in" /><!--버튼을 만드는 명령어(이것 말고도 <button>도 있음)-->
+        <!--계정 찾기 링크-->
+        <a href="#">Find Kokoa Account or Password</a>
+        <!--폼 안에 링크를 넣은 이유: 이번 클론에 링크가 많을 거라 따로 id나 class없이 이 링크를 CSS에서 select하기 위함-->
+    </form>
+    
+
+    <script 
+        src="https://kit.fontawesome.com/6478f529f2.js"
+        crossorigin="anonymous"
+    ></script><!--font awesome링크 저장해서 쓰기-->
+</body>
+</html>

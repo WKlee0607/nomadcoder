@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat w/nico - Kokoa Talk</title>
+</head>
+<body id="chat-screen">
+    <!--상태바-->
+    <div class="status-bar">
+        <div class="status-bar__column">
+            <span>No Service</span>
+            <i class="fas fa-wifi"></i><!--To Do: Wifi Icon/font awesome -->
+        </div>
+        <div class="status-bar__column">
+            <span>18:43</span>
+        </div>
+        <div class="status-bar__column">
+            <i class="fas fa-lock"></i><!--Lock icon-->
+            <span>11%</span>
+            <i class="fas fa-battery-full fa-lg"></i><!-- Battery Icon/ fa-lg : 아이콘 크기 크게 해주는 class이름 - 뒤에는 lg(라지),s,m,l 쓸 쑤 있음-->
+            <i class="fas fa-bolt"></i><!-- Lightning Icon-->
+        </div>
+    </div>
+    <!--alternative header-->
+    <header class="alt-header">
+        <div class="alt-header__column">
+            <a href="chats.html">
+                <i class="fas fa-angle-left fa-3x"></i>
+            </a>
+        </div>
+        <div class="alt-header__column">
+            <h1 class="alt-header__title">니꼬</h1>
+        </div>
+        <div class="alt-header__column">
+            <span><i class="fas fa-search fa-2x"></i></span>
+            <span><i class="fas fa-bars fa-2x"></i></span>
+        </div>
+    </header>
+
+
+    <!--main screen-->
+    <main class="main-screen main-chat">
+        <div class="chat__timestamp">
+            Tuesday, June 30, 2020
+        </div>
+        <div class="message-row">
+            <img src="https://avatars.githubusercontent.com/u/103304455">
+            <div class="message-row__content">
+                <span class="message__author">Nico</span>
+                <div class="message__info">
+                    <span class="message__bubble">Hi!</span>
+                    <span class="message__time">21:27</span>
+                </div>
+            </div>
+        </div>
+        <div class="message-row message-row--own"> <!--원래 있던 css에 다른 걸 추가로 적용하려면 다른 class를 더해줘서 적용.= 이걸 modifier라고 함-->
+            <div class="message-row__content">
+                <div class="message__info">
+                    <span class="message__bubble">Who are you?</span>
+                    <span class="message__time">21:27</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--채팅 입력창-->
+    <form class="reply">
+        <div class="reply__column">
+            <i class="far fa-plus-square fa-lg"></i>
+        </div>
+        <div class="reply__column">
+            <input type="text" placeholder="Write a message"/>
+            <i class="far fa-laugh fa-lg"></i>
+            <button>
+                <i class="far fa-arrow-alt-circle-up"></i>
+            </button>
+        </div>
+    </form>
+    
+    
+
+    <script 
+        src="https://kit.fontawesome.com/6478f529f2.js"
+        crossorigin="anonymous"
+    ></script><!--font awesome링크 저장해서 쓰기-->
+</body>
+</html>

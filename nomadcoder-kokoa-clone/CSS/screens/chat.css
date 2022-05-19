@@ -1,0 +1,155 @@
+#chat-screen{
+    background-color: #abc1d1;
+    height: 1000vh;
+}
+
+#chat-screen .status-bar{
+    background-color: #abc1d1;
+    z-index: 2;/*z-index는 layer순서를 말해줌 숫자가 높을수록 나중에 쌓인 것이므로 앞에 보이게 됨. z-index의 default값은 0임. fixed, absolute position에 사용 가능*/
+
+}
+
+#chat-screen .alt-header{
+    top:0;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #abc1d1;
+    z-index: 1;
+}
+
+.main-chat{
+    margin-top: 150px;
+    display: flex;/*div는 block이라 옆으로 늘어나있는데, display:flex를 하면 content의 width(를 안주면 문장 크기만큼)만큼 가로가 줄어들게 됩니다.-> 한 줄에 content들이 오게 돼서.*/
+    flex-direction: column;/*flex-direction : column;을 하면 content-height만큼 세로가 줄어들고 가로는 원래대로 늘어나게 되는거죠.(content가 세로 정렬 되면서 가로 축에는 암것도 없으므로 다시 늘어남) 따라서 다시 크기가 늘어나게 됨*/
+    align-items: center;/*가로에 대해 가운데 정렬을 해주면서, 다시 width만큼 가로가 줄어들게 됨*/
+}
+
+.chat__timestamp{
+    color: white;
+    background-color: #91A3B2;
+    padding: 15px;
+    border-radius: 25px;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.message-row{
+    width: 100%;
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.message-row img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.message__author{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.message__bubble{
+    background-color: white;
+    padding: 13px;
+    font-size: 18px;
+    border-radius: 15px;
+    border-top-left-radius: 0px;
+    margin-right: 5px;
+}
+
+.message__info{
+    display: flex;
+    align-items: flex-end;
+}
+
+.message__time,
+.message__author{
+    opacity: 0.7;
+    font-size: 13px;
+}
+
+.message-row--own{
+    justify-content: flex-end;
+}
+
+.message-row--own .message__info{
+    flex-direction: row-reverse;
+}
+
+.message-row--own .message__bubble{
+    background-color: var(--yellow);
+    border-top-right-radius: 0px;
+    border-top-left-radius: 15px;
+    margin-right: 0px;
+    margin-left: 5px;
+    /*order: 1;order(정렬 순서를 정해줌) 이건 flex chidren에게만 적용됨*/
+}
+
+.message-row .message__time{
+    /*order: 0;*/
+}
+
+.reply{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    padding: 5px 25px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.reply .reply__column:first-child{
+    width: 10%;
+}
+
+.reply .reply__column:last-child{
+    width: 90%;
+    position: relative;
+}
+
+.reply input{
+    padding: 15px;
+    width: 100%;
+    border: var(--main-border);
+    border-radius: 20px;
+}
+
+.reply .reply__column:last-child > i,
+.reply .reply__column:last-child button{
+    position: absolute;
+    right: -3px;
+    top: 2px;
+}
+
+.reply .reply__column:last-child > i{
+    right: 40px;
+    top:9px;
+}
+
+.reply i{
+    opacity: 0.5;
+}
+
+.reply__column button{
+    background-color: var(--yellow);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.reply__column button i{
+    opacity: 1;
+}
+
+.reply__column button:focus,
+.reply__column button:active{
+    outline: none;
+}
