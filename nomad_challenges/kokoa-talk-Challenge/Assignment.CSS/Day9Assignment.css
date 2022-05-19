@@ -1,0 +1,109 @@
+body{
+    background-color: #6CBCBE;
+}
+
+.all{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top:250px;
+}
+
+.dots,
+.squres{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    width: 120px;
+    position: relative;
+
+}
+
+.dots__dot{
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.squres__squre{
+    height: 60px;
+    width: 20px;
+    background-color: white;
+    margin: 0px 5px;
+    animation-name: bigger;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-duration:1s ;
+    animation-delay:0.1s ;
+}
+
+.squres__squre:nth-child(2){
+    animation-delay:0.2s ;
+}
+.squres__squre:nth-child(3){
+    animation-delay:0.3s ;
+}
+.squres__squre:nth-child(4){
+    animation-delay:0.4s ;
+}
+.squres__squre:last-child{
+    animation-delay:0.5s ;
+}
+
+.dots__dot:first-child,
+.dots__dot:last-child{
+    animation-name: circleDot_first;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
+.dots__dot:last-child{
+    animation-name: circleDot_last;
+}
+
+@keyframes circleDot_first{
+    from{transform: rotate(0deg) translateX(30px);}/*translate:좌표 이동 -> 해당 element가 position: absolute여야함. relative는 좌표아동 하는 게 보임*/
+    to{transform: rotate(180deg) translateX(30px);}
+}
+
+@keyframes circleDot_last{
+    from{transform: rotate(-180deg) translateX(30px);}
+    to{transform: rotate(0deg) translateX(30px);}
+}
+
+@keyframes bigger{
+    0%{ }
+    50%{transform: scaleY(1.7);}
+    70%{transform: scaleY(1);}
+    100%{transform: scaleY(1);}
+}
+
+/*animation-delay
+animation 속성은 적용되는 시점부터 바로 동작하게 됩니다.
+animation-delay는 원래 시작되는 시점에서부터 일정시간만큼 대기했다가 시작하게 하는 속성입니다.
+일반적으로 속성값은 양수를 사용합니다. 하지만 음수를 넣을 경우, delay 없이 시작하지만 애니메이션의 동작지점이 절대값만큼 지난 시점부터 진행됩니다.
+
+예시처럼 반복적으로 멈췄다가 다시 동작하게 하는 방법
+animation-delay는 animation이 적용되는 첫 시점에만 적용됩니다.
+따라서 예시처럼 멈췄다가 다시 동작하게하려면, animation이 동작하는 시간에 공백을 만들어 주면 됩니다.
+예를 들어 1s 동안 animation을 진행한다면, 0.5s(50%)에 이미 동작을 완료하고 1s(100%)에는 완료된 동작을 유지(50%와 동일한 내용)하는 코드를 작성하는 방식입니다.
+
+transform
+transform 속성을 이용하면, 요소를 돌리고, 늘리고, 이동하고, 비틀고 등 다양하게 변형할 수 있습니다.
+예시처럼 회전시키려면 rotate, 늘리려면 scale 을 사용하면 됩니다.
+
+transform: translate(...)
+translate의 경우 단순히 animation을 위한 움직임으로 사용할 수 있지만, 요소를 원하는 위치에 배치하기 위한 수단으로 사용할 수 있습니다.
+특히 position: absolute; 인 요소를 부모의 정중앙에 배치하고자 할 경우에 사용할 수 있습니다.
+absolute가 선언된 요소에 top: 50% 과 left: 50% 을 선언했을 때, 정중앙에 오는 것은 absolute 요소의 좌상단 꼭지점입니다.
+여기에 transform: translate(-50%, -50%); 를 선언해주면, 요소의 크기를 기준으로 너비 50%, 높이 50% 만큼을 좌상으로 이동합니다.
+
+border-radius
+border-radius 속성을 통해 요소의 꼭지점들을 곡선으로 만들 수 있습니다.
+width와 height가 동일할 경우, border-radius에 50%를 입력하면 원이 만들어집니다.
+또한, 네 꼭지점 중 한 곳을 제외한 세 곳에 border-radius를 적용함으로써 말풍선 모양의 박스도 구현할 수 있습니다*/

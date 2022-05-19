@@ -1,0 +1,220 @@
+:root{
+    --grey: rgba(0,0,0,0.3);
+    --yellow: #ffce32;
+    --title-size: 35px;
+    --border-radius:20px;
+}
+
+body{
+    height: 120vh;
+}
+/*--status-bar--*/
+.status-bar{
+    background-color: var(--yellow);
+}
+
+.status-bar__form,
+.status-bar__icons{
+    display: flex;
+}
+
+.status-bar__icons{
+    padding: 40px 30px 0px 30px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.status-bar__form{
+    justify-content: center;
+}
+
+.status-bar__form-search{
+    width: 78vw;
+    height: 70px;
+    padding: 0px 40px;
+    position: relative;
+    top: 35px;
+    left: 10px;
+    border-radius: 35px;
+    box-shadow: 0px 0px 3px 0px var(--grey);
+    border: none;
+    font-size: 20px;
+}
+
+.status-bar__form i{
+    position: relative;
+    top:55px;
+    right: 50px;
+    font-size: 30px;
+    color: var(--grey);
+}
+
+.status-bar__form-search::placeholder{
+    color: var(--grey);
+}
+
+/*------main------------------------------------*/
+
+main{
+    margin-top: 100px;
+    padding: 0px 30px;
+}
+
+/*-------book-------*/
+.book{
+    margin-bottom: 10px;
+}
+
+
+.book-div-part:first-child{
+    font-size: var(--title-size);
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+
+.book-div-part:last-child{
+    display: flex;
+    padding-bottom: 30px;
+    overflow-x: scroll;
+}
+
+.book-div-part__column:first-child{
+    margin-right: 30px;
+}
+
+.book-div-part:last-child .book-div-part__column:first-child img{
+    width: 180px;
+    height: 280px;
+    border-radius: var(--border-radius);
+}
+
+
+
+.book-div-part__column:last-child,
+.book-div-part__column-description:first-child{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.book-div-part__column-description:first-child{
+    height: 45%;
+}
+
+.book-div-part__column-description:first-child span:first-child{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.book-div-part__column-description:first-child span:nth-child(2){
+    font-size: 25px;
+    color: var(--grey);
+}
+
+.book-div-part__column-description:first-child span:last-child i{
+    font-size: 20px;
+    margin-right: 10px;
+    color: var(--yellow);
+}
+
+.book-div-part__column-description:nth-child(2),
+.book-div-part__column-description:last-child,
+.book-div-part__column-description:last-child span{
+    display: flex;
+    align-items: center;
+}
+
+.book-div-part__column-description:nth-child(2) button,
+.book-div-part__column-description:last-child button{
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: 1px 1px 5px 1px black;
+}
+
+
+.book-div-part__column-description:nth-child(2) button{
+    height: 50px;
+    width: 150px;
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+.book-div-part__column-description:last-child span{
+    justify-content: center;
+    width:70px;
+    height: 70px;
+    background-color: var(--yellow);
+    font-size: 30px;
+    border-radius: 50%;
+    margin-right: 75px;
+}
+
+.book-div-part__column-description:last-child button{
+    height: 70px;
+    width: 200px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}
+
+/*Adventures-----------*/
+.Adventures-title{
+    font-size: var(--title-size);
+}
+
+.Adventures-movies{
+    display: flex;
+    padding-bottom: 20px;
+    overflow-x: scroll;
+}
+
+.Adventures-movie{
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Adventures-movie__img img{
+    width: 150px;
+    height: 250px;
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+}
+
+.Adventures-movie__stars i{
+    margin-right: 7px;
+    color: var(--yellow);
+}
+
+/*authors------------------------*/
+
+
+.director-title{
+    font-size: var(--title-size);
+}
+
+.director-content{
+    display: flex;
+}
+
+.director-content__column:first-child{
+    margin-right: 30px;
+}
+
+.director-content__column:first-child img{
+    width: 200px;
+    height: 250px;
+    border-radius: var(--border-radius);
+}
+
+.director-content__column:last-child h1{
+    font-size: 30px;
+}
+
+.director-content__column:last-child p{
+    font-size: 17px;
+    line-height: 27px;
+}

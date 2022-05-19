@@ -1,0 +1,30 @@
+html{
+    height: 100%;
+}
+body{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: tomato;
+}
+.outer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width:350px;
+    height: 350px;
+    background-color: bisque;
+    border: 2px solid black;
+}
+.inner{
+    width: 80px;
+    height: 80px;
+    background-color: #008080;
+    border: 4px solid white;
+}
+.center{
+    width:300px;
+    border: 4px dashed white ;
+}
