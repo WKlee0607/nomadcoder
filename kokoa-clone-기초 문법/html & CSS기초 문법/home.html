@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <title>hello my world</title>
+        <style>
+            body{
+                display: flex;
+                justify-content: center;
+                height:100vh;
+                align-items: center;
+                flex-direction: column;
+            }
+            div{
+                background-color: teal;
+                width: 200px;
+                height:200px;
+            }
+            @media screen and (min-device-width:601px) and (max-width: 1200px){
+                div{
+                    background-color: wheat;
+                }
+            }
+            span{
+                font-size: 36px;
+            }
+            @media screen and (orientation: landscape){
+                span {
+                    display: none;
+                }
+            }
+            @media print {
+                span{
+                    color: tomato;
+                }
+                body{
+                    background-color: aquamarine;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div></div>
+        <span>please flip your phone</span>
+    </body>
+</html>
+
+
