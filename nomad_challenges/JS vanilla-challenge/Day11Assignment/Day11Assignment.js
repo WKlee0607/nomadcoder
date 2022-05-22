@@ -24,6 +24,9 @@ const btn = document.querySelector("button");
 function handleOnClick(){
     const chosenColors1 = colors[Math.floor(Math.random() * colors.length)];
     const chosenColors2 = colors[Math.floor(Math.random() * colors.length)];
+    if (chosenColors1 === chosenColors2) {
+      return handleOnClick();
+    }
     body.style.backgroundImage = `linear-gradient(90deg,${chosenColors1},${chosenColors2})`;
 }
 
