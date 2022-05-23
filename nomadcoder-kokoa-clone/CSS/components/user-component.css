@@ -4,7 +4,34 @@
     position: relative;
     top: 105px;
     justify-content: space-between;
+    transition: all 0.1s ease-in-out;
+    animation: fadeInUser 1s ease-in-out;
 }
+
+@keyframes fadeInUser{
+    from{
+        opacity: 0;
+        transform: translateX(15px);
+    }
+    to{
+        opacity: 1;
+        transform: none;
+    }
+    
+}
+
+.user-component:hover{
+    will-change: transform;
+    border-radius: 20px; 
+    transform: translateX(-3%);
+    box-shadow: 3px 3px 3px 1px rgba(0,0,0,0.3);
+}
+
+.user-component:hover .user-component__column:last-child{
+    transform: translateX(-5px);
+    color: black;
+}
+
 .user-component__column:first-child{
     display: flex;
     align-items: center;
@@ -45,8 +72,15 @@
     flex-direction: column;
     align-items: flex-end;
 }
+
+.user-component__column:last-child i{
+    will-change: transform;
+    transition: all 0.1s ease-in-out;
+}
+
 .user-component__time{
     margin-bottom: 10px;
     display: block;/*block이어야 margin이 가능함*/
 }
+
 

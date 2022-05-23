@@ -11,6 +11,7 @@
 @import "components/points.css";
 @import "components/icon-row.css";
 @import "components/alt-screen-header.css";
+@import "components/no-mobile.css";
 
 /* Screens */
 @import "screens/login.css";
@@ -24,8 +25,21 @@ body{
     font-family:'Open Sans', sans-serif;
     color: #2E363E;
 }
-.main-screen{
-    padding: 0px var(--horizontal-space)
+@keyframes fadeInMain{
+    from{
+        transform:translateY(-10px);
+        opacity: 0;
+    }
+    to{
+        transform:none;
+        opacity: 1;
+    }
 }
+
+.main-screen{
+    padding: 0px var(--horizontal-space);
+    animation: fadeInMain 1s ease-in-out;
+}
+
 
 /* 위의 파일들 import 순서도 중요함! */

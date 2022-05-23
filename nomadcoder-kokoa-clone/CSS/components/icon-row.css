@@ -6,7 +6,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;/*align item은 보조축에 쓰임(여기서는 가로축)*/
+    transition: all 0.2s ease-in-out;
 }
+
+.icon-row__icon:hover{
+    border-radius: 20px;
+    transform:  scale(1.2);
+    padding: 5px;
+    background: linear-gradient(rgba(135, 135, 135, 0.596), rgba(181, 181, 181, 0.735));
+}
+
 .icon-row__icon i{
     font-size: 35px;
 }

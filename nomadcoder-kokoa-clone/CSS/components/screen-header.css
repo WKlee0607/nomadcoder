@@ -12,7 +12,71 @@
 .screen-header__title{
     font-size: 32px;
     font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 20px;
+    transition: all 0.1s ease-in-out;
 }
+
+.screen-header__title:hover{
+    color: red;
+    border:1px solid black;
+}
+
+@keyframes fadeInMain{
+    from{
+        transform:translateY(-10px);
+        opacity: 0;
+    }
+    to{
+        transform:none;
+        opacity: 1;
+    }
+}
+
+.screen-header__icons{
+    animation: fadeInMain 1s ease-in-out;
+}
+
 .screen-header__icons span{
     margin-left: 25px;
 }
+
+@keyframes jumpIcon{
+    0%{transform: none;}
+    50%{transform: rotateY(180deg);}
+    100%{transform: none;}
+}
+
+.screen-header__icons .fa-search{
+    transition: all 0.3s ease-in-out;
+}
+
+.screen-header__icons .fa-search:hover{
+    font-size: 30px;
+    color:red;
+}
+
+
+.screen-header__icons .fa-comment-dots:hover,
+.screen-header__icons .fa-music:hover{
+    will-change: transform;
+    animation: jumpIcon 0.8s ease-in-out infinite;
+    color:red;
+}
+
+@keyframes rotateCog{
+    0%{transform: none;}
+    50%{transform:rotateZ(360deg);}
+    100%{transform: none;}
+}
+
+.screen-header__icons .fa-cog:hover{
+    animation: rotateCog 3s linear infinite;
+    color:red;
+}
+
+
+

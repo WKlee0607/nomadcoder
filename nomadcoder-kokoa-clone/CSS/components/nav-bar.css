@@ -9,19 +9,30 @@
     이를 막기 위해 box-sizing:border-box를 쓰면 box의 크기를 유지한 채 padding을 줄 수 있다.*/
     border-top: 1px solid rgba(182, 182, 182, 0.325);
 }
+
 .nav__list{
     display: flex;/*flex해주면 자손들이 옆으로 배치됨.*/
     justify-content: space-between;
 }
+
 .nav__link{
     color: #2E363E;
     position: relative;
 }
+
+@keyframes notificationAnimation{
+    0%{transform: none;}
+    50%{transform: translateY(-5px) rotateY(180deg);}
+    100%{transform: none;}
+}
+
 .nav__notification{
     position: absolute;/*가장 가까운 relative를 가진 부모 기준으로 움직임. 따라서 그 바로 위인 nav__link를 relative로 만듦*/
     left: 20px;
     bottom:15px;
+    animation: notificationAnimation 2s ease-in-out infinite;
 }
+
 .nav__ellipsis{
     background-color: tomato;
     display: block;
@@ -31,4 +42,31 @@
     position: absolute;
     left:30px;
     bottom:30px;
+}
+
+@keyframes appearBtnAnimation{
+    from{
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to{
+        transform: none;
+        opacity: 1;
+    }
+}
+
+
+.nav__btn{
+    animation:appearBtnAnimation 0.5s ease-in-out forwards;
+}
+
+.nav__btn .fas,
+.nav__btn .far{
+    transition: all 0.1s linear;
+}
+
+.nav__btn .fas:hover,
+.nav__btn .far:hover{
+    transform: scale(1.15);
+    color: red;
 }

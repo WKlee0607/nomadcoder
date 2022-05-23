@@ -27,9 +27,18 @@
     margin-bottom: 25px;
 }
 
-.open-chat__header span{
+.open-chat__header span,
+.open-chat__header h4{
     opacity: 0.6;
+    transition: color 0.2s linear;
 }
+
+.open-chat__header span:hover,
+.open-chat__header h4:hover{
+    opacity: 1;
+    color: black;
+}
+
 .open-post{
     display: flex;
     justify-content: space-between;
@@ -94,4 +103,22 @@
     margin-left: 3px;
 }
 
+@keyframes heartbeat{
+    0%{
+        color: white;
+        transform: none;
+    }
+    50%{
+        color: tomato;
+        transform: scale(1.5);
+    }
+    100%{
+        color: white;
+        transform: none;
+    }
+}
 
+.open-post__heart-count:hover i{
+    will-change: transform;
+    animation: heartbeat 1s linear infinite ;
+}

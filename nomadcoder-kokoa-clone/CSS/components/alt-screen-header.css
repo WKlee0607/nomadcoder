@@ -7,9 +7,32 @@
     justify-content: center;
 }
 
+@keyframes fadeInHeader{
+    from{
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to{
+        transform: none;
+        opacity: 1;
+    }
+}
+
+.alt-header__column i:hover{
+    transform: scale(1.2);
+    padding: 0 5px;
+}
+
+.alt-header__column i:hover{
+    transition: all 0.1s ease-in-out;
+}
+
 .alt-header__column{
     width: 33%;
+    animation: fadeInHeader 1s ease-in-out;
 }
+
+
 
 .alt-header__title{
     font-size: 28px;
@@ -33,3 +56,5 @@
 .alt-header__column span:last-child{
     margin-left: 20px;
 }
+
+
