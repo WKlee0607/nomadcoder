@@ -1,0 +1,86 @@
+.user-component{
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 105px;
+    justify-content: space-between;
+    transition: all 0.1s ease-in-out;
+    animation: fadeInUser 1s ease-in-out;
+}
+
+@keyframes fadeInUser{
+    from{
+        opacity: 0;
+        transform: translateX(15px);
+    }
+    to{
+        opacity: 1;
+        transform: none;
+    }
+    
+}
+
+.user-component:hover{
+    will-change: transform;
+    border-radius: 20px; 
+    transform: translateX(-3%);
+    box-shadow: 3px 3px 3px 1px rgba(0,0,0,0.3);
+}
+
+.user-component:hover .user-component__column:last-child{
+    transform: translateX(-5px);
+    color: black;
+}
+
+.user-component__column:first-child{
+    display: flex;
+    align-items: center;
+}
+
+.user-component__avatar{
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+    margin-right: 20px;
+}
+.user-component__title{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.user-component__subtitle{
+    margin-top: 8px;
+    font-size: 17px;
+    color: rgba(0,0,0,0.5);
+}
+
+.user-component__avatar--xl{
+    width: 80px;
+    height: 80px;
+}
+.user-component__avatar--sm{
+    width: 60px;
+    height: 60px;
+    border-radius: 25px;
+}
+.user-component__title--not-bold{
+    font-weight: 400;
+}
+.user-component__column:last-child{
+    color:rgba(0,0,0,0.3) ;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-component__column:last-child i{
+    will-change: transform;
+    transition: all 0.1s ease-in-out;
+}
+
+.user-component__time{
+    margin-bottom: 10px;
+    display: block;/*block이어야 margin이 가능함*/
+}
+
+
