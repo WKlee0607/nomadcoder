@@ -9,6 +9,8 @@ body{
     height: 100%;
     margin: 0;
     padding: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: 0s;
 }
 
 @keyframes fadeIn{
@@ -28,8 +30,11 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeIn 1s ease-in-out forwards;
-    animation-delay: 0.5s;
+}
+
+#title{
+    position: absolute;
+    bottom:30%;
 }
 
 #quote{
@@ -40,8 +45,99 @@ body{
     bottom: 10px;
 }
 
+#clock{
+    position: absolute;
+    top:0px;
+    left: 30px;
+    color: rgba(0,0,0,0.8);
+    font-size: 30px;
+    height: 70px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid beige;
+    border-radius: 10px;
+}
 
 
+#todo{
+    position: absolute;
+    left: 30px;
+    top:100px;
+}
 
 
+#todo-form input{
+    border: 1px solid white;
+    background: transparent;
+    font-size: 20px;
+    height: 30px;
+    width: 160px;
+    border-radius: 10px;
+}
 
+#todo-form input::placeholder{
+    color: black;
+}
+#todo-list{
+    list-style: none;
+}
+
+#todo-list li{
+    color:black;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+#todo-list button{
+    background: transparent;
+    border: none;
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+#login-form{
+    position: absolute;
+    right: 30px;
+    top:30px;
+}
+
+#login-form input{
+    border: 1px solid white;
+    border-radius: 10px;
+    background: transparent;
+    width: 270px;
+    height: 40px;
+    font-size: 30px;
+}
+
+#login-form input::placeholder{
+    color:black;
+    font-size: 30px;
+}
+
+#todo-form input:focus,
+#login-form input:focus{
+    outline: none;
+}
+
+#weather{
+    position: absolute;
+    top:30px;
+    right: 20px;
+}
+
+img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: absolute;
+    top:27%;
+
+}
+
+#greeting{
+    color:black;
+}

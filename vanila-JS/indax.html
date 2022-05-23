@@ -8,20 +8,25 @@
     <title>Momentum</title>
 </head>
 <body>
+    <h1 id="title">Here Is My Zone</h1>
     <!--input의 유효성 검사를 작동시키기 위해서는 from이 필요함.
          & 버튼을 눌렀을 때 새로고침(submit) 되려면 form이 필요. but 이번에는 submit이 돼서
         새로고침 되면 값을 받을 수 없으므로 이 submit을 막을거임-->
     <form id="login-form" class="hidden">
         <input required maxlength="15" type="text" placeholder="What is your name?"/>
-        <button>Log In</button>
+        
     </form>
     <!--기본 동작 모음: form-submit, a--->
     <h2 id="clock">00:00:00</h2>
     <h1 id="greeting" class="hidden"></h1>
+    <div id="todo">
         <form id="todo-form">
-            <input type="text" placeholder="Write a To Do and Press Enter" required />
+            <input type="text" placeholder="Make Your Day!" required />
         </form>
         <ul id="todo-list"></ul>
+    </div>
+
+
     <div id="quote">
         <span></span>
         <span></span>
