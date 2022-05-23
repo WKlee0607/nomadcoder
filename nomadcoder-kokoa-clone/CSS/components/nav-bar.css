@@ -33,6 +33,18 @@
     animation: notificationAnimation 2s ease-in-out infinite;
 }
 
+@keyframes twinkle{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
 .nav__ellipsis{
     background-color: tomato;
     display: block;
@@ -42,6 +54,7 @@
     position: absolute;
     left:30px;
     bottom:30px;
+    animation: twinkle 2s linear infinite;
 }
 
 @keyframes appearBtnAnimation{
@@ -70,3 +83,4 @@
     transform: scale(1.15);
     color: red;
 }
+

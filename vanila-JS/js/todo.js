@@ -23,7 +23,7 @@ function paintToDO(newTodoObj){
     const span = document.createElement("span");
     span.innerText = newTodoObj.text;
     const button = document.createElement("button");
-    button.innerText = "X";
+    button.innerText = "❌";
     button.addEventListener("click",deleteToDO);/*버튼 요소에 이 이벤트 리스너를 내포시켜주는 것임. */
     li.appendChild(span);
     li.appendChild(button);

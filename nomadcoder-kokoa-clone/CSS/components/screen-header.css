@@ -50,13 +50,34 @@
     100%{transform: none;}
 }
 
+@keyframes what{
+    0%{
+        transform: translateX(5px) translateY(-5px);
+    }
+    25%{
+        transform: translateX(-5px) translateY(5px);
+    }
+    50%{
+        transform: translateX(-5px) translateY(-5px);
+    }
+    75%{
+        transform: translateX(5px) translateY(5px);
+    }
+    100%{
+        transform: translateX(5px) translateY(-5px);
+    }
+    
+}
+
 .screen-header__icons .fa-search{
     transition: all 0.3s ease-in-out;
 }
 
 .screen-header__icons .fa-search:hover{
+    will-change: transform;
     font-size: 30px;
     color:red;
+    animation: what 1s ease-in-out infinite;
 }
 
 
