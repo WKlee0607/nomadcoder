@@ -8,38 +8,64 @@
     <title>Momentum</title>
 </head>
 <body>
-    <h1 id="title">Here Is My Zone</h1>
+    <div id="opacity-div">
+        <div class="opcity-div__column">
+            <h2 id="clock">00:00:00</h2>
+            <div id="todo">
+                <form id="todo-form">
+                    <input type="text" placeholder="Make Your Day!" required />
+                </form>
+                <ul id="todo-list"></ul>
+            </div>
+        </div>
+        <div class="opcity-div__column">
+            <h1>Today's quote</h1>
+            <div id="quote">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+            
+    </div>
     <!--input의 유효성 검사를 작동시키기 위해서는 from이 필요함.
-         & 버튼을 눌렀을 때 새로고침(submit) 되려면 form이 필요. but 이번에는 submit이 돼서
+            & 버튼을 눌렀을 때 새로고침(submit) 되려면 form이 필요. but 이번에는 submit이 돼서
         새로고침 되면 값을 받을 수 없으므로 이 submit을 막을거임-->
     <form id="login-form" class="hidden">
-        <input required maxlength="15" type="text" placeholder="What is your name?"/>
+        <input required maxlength="15" type="text" placeholder="Write your name here"/>
         
     </form>
     <!--기본 동작 모음: form-submit, a--->
-    <h2 id="clock">00:00:00</h2>
-    <h1 id="greeting" class="hidden"></h1>
-    <div id="todo">
-        <form id="todo-form">
-            <input type="text" placeholder="Make Your Day!" required />
-        </form>
-        <ul id="todo-list"></ul>
+    
+    <div id="greeting-div" class="hidden">
+        <h1 id="greeting"></h1>
+        <button>
+            <span><i class="fas fa-time"></i></span>
+        </button>
     </div>
+        
+    <div id="wher-div">
+        <div id="arrow">
+            <button id="refresh-wher"><span><i class="fas fa-redo"></i></span></button>
+        </div>
+        <div id="weather">
+            <span>날씨 불러오는 중</span>
+            <span></span>
+        </div>
+        <img id="weatherIcon" class="hidden"/>
+    </div>
+    
 
-
-    <div id="quote">
-        <span></span>
-        <span></span>
-    </div>
-    <div id="weather">
-        <span></span>
-        <span></span>
-    </div>
+    
+    
     <script src="js/greetings.js"></script><!--js가져오는 법임. 주로 js는 html마지막에 이렇게 불러옴-->
     <script src="js/clock.js"></script>
     <script src="js/quotes.js"></script>
     <script src="js/background.js"></script>
     <script src="js/todo.js"></script>
     <script src="js/weather.js"></script>
+    <script 
+        src="https://kit.fontawesome.com/6478f529f2.js"
+        crossorigin="anonymous"
+    ></script>
 </body>
 </html>
