@@ -4,6 +4,7 @@ const link = document.querySelector("a");
 const greeting = document.querySelector("#greeting");
 const greetingDiv = document.querySelector("#greeting-div");
 const button = document.querySelector("#greeting-div button");
+const btnSpan = document.querySelector("#greeting-div button span");
 
 const HIDDEN_CLASSNAME = "hidden";
 const USERNAME_KEY = "username";
@@ -18,10 +19,11 @@ function onLoginSubmit(event){
 }
 
 function paintGreetings(username){
-    greeting.innerText = `${username}'s privacy ☃︎`;
+    greeting.innerText = `${username}'s private room`;
     greeting.classList.remove(HIDDEN_CLASSNAME);
     greetingDiv.classList.remove(HIDDEN_CLASSNAME);
     button.classList.remove(HIDDEN_CLASSNAME);
+    btnSpan.classList.remove(HIDDEN_CLASSNAME);
     button.addEventListener("click",deleteName);
 }
 

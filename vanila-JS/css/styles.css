@@ -4,7 +4,7 @@
 
 html,
 body{
-    background-color: rgb(109, 109, 109);
+    background-color: rgb(78, 78, 78);
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -12,6 +12,7 @@ body{
     padding: 0;
     animation: fadeIn 1s ease-in-out forwards;
     animation-delay: 0s;
+   
 }
 
 @keyframes fadeIn{
@@ -26,27 +27,64 @@ body{
 }
 
 body{
+    display: flex;
+    justify-content: space-between;
     color: white;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
-#opacity-div{
-    position: absolute;
-    top:0;
-    left: 0;
-    height: 100%;
+.body-column:first-child{
     width: 30%;
-    background-color: black;
-    opacity: 0.8;
-    padding-left: 15px;
+    height: 100%;
+    z-index: 99;
+}
+.body-column:nth-child(2){
+    width: 69%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+.body-column__column:first-child{
+    height: 50%;
+    padding-left: 20px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.body-column__column:last-child{
+    margin-bottom: -5px;
+}
+
+.body-column__column-row:first-child{
+    display: flex;
+    justify-content: space-between;
+}
+
+.body-column__column-row:last-child{
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#opacity-div{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0.8;
+}
+
+.opcity-div__column:first-child{
+    margin-top: 30px;
+}
 
 #quote{
     display: flex;
@@ -69,6 +107,11 @@ body{
     align-items: center;
     border: 1px solid beige;
     border-radius: 10px;
+    transition: color 0.7s ease-in-out;
+}
+
+#clock:active{
+    animation: wher 0.7s ease-in-out forwards;
 }
 
 #todo-form input{
@@ -120,10 +163,9 @@ body{
     height: 30px;
 }
 
-#login-form{
-    margin: 30px 0px;
-    
-}
+
+/*------*/
+
 
 #login-form input{
     border: none;
@@ -131,14 +173,12 @@ body{
     height: 40px;
     font-size: 30px;
     text-align: center;
-    filter: drop-shadow(3px 3px 2px rgb(171, 171, 171));
 }
 
 #login-form input::placeholder{
     color:black;
     opacity: 0.7;
     font-size: 30px;
-    filter: drop-shadow(3px 3px 2px rgb(171, 171, 171));
 }
 
 #todo-form input:focus,
@@ -146,20 +186,34 @@ body{
     outline: none;
 }
 
+@keyframes wher{
+    from{
+        transform: none;
+    }
+    to{
+        transform: translateX(40px) scale(1.2);
+        border-color: red;
+    }
+}
+
 #wher-div{
-    position: absolute;
-    top:30px;
-    right: 20px;
+    width: 80%;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 3px 5px;
     border: 1.5px solid white;
     border-radius: 15px;
 }
 
+#wher-div:active{
+    animation: wher 0.7s ease-in-out forwards;
+}
+
+
 #weather{
     font-weight: 500;
-    font-size: 15px;
+    font-size: 13px;
     margin-left: 3px;
     display: flex;
     align-items: center;
@@ -170,33 +224,26 @@ body{
 }
 
 #weatherIcon{
+    background-color: grey;
+    border-radius: 20%;
     width: 30px;
     height: 30px;
 }
 
 #refresh-wher{
+    color: white;
     background: transparent;
     border: none;
 }
 
 img{
-    width: 150px;
-    height: 150px;
-    border-radius: 30%;
-    transition: all 0.5s ease-in-out;
+    width: 100%;
+    height: 400px;
+    transition: all 1s ease-in-out;
 }
 
-img:first-child:hover{
-    transform: translateY(-30px);
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
-}
-
-#greeting{
-    color:black;
-    filter: drop-shadow(3px 3px 2px rgb(171, 171, 171));
-    opacity: 0.8;
+img:active{
+    transform: translateY(-99%);
 }
 
 #greeting-div{
@@ -205,9 +252,110 @@ img:first-child:hover{
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+#greeting{
+    color:black;
+    opacity: 0.8;
+}
+
+
+
 #greeting-div button{
     margin-left: 10px;
     background: transparent;
     border: none;
 }
 
+.menu{
+    display: flex;
+    flex-direction: column;
+}
+
+.toggle{
+    background: transparent;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 40px;
+}
+
+@keyframes menutox{
+    from{
+        transform-origin: left;
+    }
+    to{
+        transform: rotateZ(360deg) scale(0);
+    }
+}
+
+.toggle:active .toggle-menu{
+    animation: menutox 0.25s ease-in-out;
+}
+
+.toggle:active .toggle-x{
+    animation-direction: alternate;
+    animation: menutox 0.25s ease-in-out;
+}
+
+.dap{
+    margin-left: -10px;
+    margin-top: 5px;
+    list-style: circle;
+}
+
+@keyframes dropdown{
+    from{
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to{
+        transform: none;
+        opacity: 0.7;
+    }
+}
+
+.dap-li{
+    margin-bottom: 5px;
+    opacity: 0;
+    font-size: 20px;
+    transition: color 0.2s ease-in-out;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    animation: dropdown 1s ease-in-out forwards;
+}
+
+.dap-li:nth-child(2){
+    animation-delay: 0.1s;
+}
+
+.dap-li:nth-child(3){
+    animation-delay: 0.2s;
+}
+
+.dap-li:nth-child(4){
+    animation-delay: 0.3s;
+}
+.dap-li a{
+    text-decoration: none;
+    color: white;
+}
+
+.dap-li a:hover{
+    color: black;
+}
+
+
+.body-column__column-row__btns{
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.body-column__column-row__btns button{
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: white;
+    opacity: 0.7;
+    box-shadow: 1px 1px 1px black;
+    transition: all 0.1s ease-in-out;
+}

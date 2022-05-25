@@ -24,6 +24,7 @@ const images = [
     "3.jpeg",
     "4.jpeg"
 ];
+const bodyColumn22 = document.querySelector(".body-column:nth-child(2) .body-column__column:nth-child(2)");
 
 const chosenImage = images[Math.floor(Math.random()*images.length)];
 
@@ -32,5 +33,5 @@ const bgIamge = document.createElement("img");
 bgIamge.src = `img/${chosenImage}`;
 
 const username = document.querySelector("#greeting");
-document.body.prepend(bgIamge);
+bodyColumn22.append(bgIamge);
 

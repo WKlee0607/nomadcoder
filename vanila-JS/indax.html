@@ -8,52 +8,83 @@
     <title>Momentum</title>
 </head>
 <body>
-    <div id="opacity-div">
-        <div class="opcity-div__column">
-            <h2 id="clock">00:00:00</h2>
-            <div id="todo">
-                <form id="todo-form">
-                    <input type="text" placeholder="Make Your Day!" required />
+    <div class="body-column">
+        <div id="opacity-div">
+            <div class="opcity-div__column">
+                <div id="wher-div">                
+                    <button id="refresh-wher"><span><i class="fas fa-redo"></i></span></button>
+                    <div id="weather">
+                        <span>날씨 불러오는 중</span>
+                        <span></span>
+                    </div>
+                    <img id="weatherIcon" class="hidden"/>
+                </div>
+                <h2 id="clock">00:00:00</h2>
+                <div id="todo">
+                    <form id="todo-form">
+                        <input type="text" placeholder="Make Your Day!" required />
+                    </form>
+                    <ul id="todo-list"></ul>
+                </div>
+
+            </div>
+            <div class="opcity-div__column">
+                <h1>Today's quote</h1>
+                <div id="quote">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body-column">
+       <div class="body-column__column">
+            <div class="body-column__column-row">
+                <div class="menu">
+                    <button class="toggle">
+                        <span><i class="fas fa-bars toggle-menu"></i></span>
+                        <span class="hidden"><i class="fas fa-times toggle-x "></i></span>
+                    </button>
+                    <ul class="dap hidden">
+                        <li class="dap-li"><a href="#">information</a></li>
+                        <li class="dap-li"><a href="#">material</a></li>
+                        <li class="dap-li"><a href="#">product</a></li>
+                        <li class="dap-li"><a href="#">contact</a></li>
+                    </ul>
+                </div>
+                <!--input의 유효성 검사를 작동시키기 위해서는 from이 필요함.
+                & 버튼을 눌렀을 때 새로고침(submit) 되려면 form이 필요. but 이번에는 submit이 돼서
+                새로고침 되면 값을 받을 수 없으므로 이 submit을 막을거임-->
+                <form id="login-form" class="hidden">
+                    <input required maxlength="15" type="text" placeholder="Write your name here"/>
                 </form>
-                <ul id="todo-list"></ul>
+                <!--기본 동작 모음: form-submit, a--->
+                
+                
             </div>
-        </div>
-        <div class="opcity-div__column">
-            <h1>Today's quote</h1>
-            <div id="quote">
-                <span></span>
-                <span></span>
+            <div class="body-column__column-row">
+                <div class="body-column__column-row__btns">
+                    <button class="back-btn">change-color</button>
+                    <button class="return-btn">return-color</button>
+                </div>
+                <div id="greeting-div" class="hidden">
+                    <h1 id="greeting"></h1>
+                    <button>
+                        <span class="hidden"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
             </div>
-        </div>
             
-    </div>
-    <!--input의 유효성 검사를 작동시키기 위해서는 from이 필요함.
-            & 버튼을 눌렀을 때 새로고침(submit) 되려면 form이 필요. but 이번에는 submit이 돼서
-        새로고침 되면 값을 받을 수 없으므로 이 submit을 막을거임-->
-    <form id="login-form" class="hidden">
-        <input required maxlength="15" type="text" placeholder="Write your name here"/>
-        
-    </form>
-    <!--기본 동작 모음: form-submit, a--->
-    
-    <div id="greeting-div" class="hidden">
-        <h1 id="greeting"></h1>
-        <button>
-            <span><i class="fas fa-time"></i></span>
-        </button>
-    </div>
-        
-    <div id="wher-div">
-        <div id="arrow">
-            <button id="refresh-wher"><span><i class="fas fa-redo"></i></span></button>
-        </div>
-        <div id="weather">
-            <span>날씨 불러오는 중</span>
-            <span></span>
-        </div>
-        <img id="weatherIcon" class="hidden"/>
+            
+       </div>
+       <div class="body-column__column">
+
+       </div>
     </div>
     
+    
+
+
 
     
     
@@ -63,6 +94,8 @@
     <script src="js/background.js"></script>
     <script src="js/todo.js"></script>
     <script src="js/weather.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/backgroundcolor.js"></script>
     <script 
         src="https://kit.fontawesome.com/6478f529f2.js"
         crossorigin="anonymous"
