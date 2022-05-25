@@ -350,12 +350,36 @@ img:active{
     justify-content: space-around;
 }
 
-.body-column__column-row__btns button{
+.body-column__column-row__btns button,
+.on-offWrap button{
     background: transparent;
     border: 1px solid black;
     border-radius: 20px;
     color: white;
     opacity: 0.7;
-    box-shadow: 1px 1px 1px black;
+    box-shadow: 1.5px 1.5px 1.5px black;
     transition: all 0.1s ease-in-out;
+}
+
+.body-column__column-row__btns button:active,
+.on-offWrap button:active{
+    transform: translateX(1.5px) translateY(1.5px);
+    box-shadow: none;
+}
+
+.body-column__column-row__music{
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.music-title h1{
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.on-offWrap button{
+    width: 50px;
+    margin-left: 3px;
 }
