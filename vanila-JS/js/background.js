@@ -22,7 +22,10 @@ const images = [
     "1.jpeg",
     "2.jpeg",
     "3.jpeg",
-    "4.jpeg"
+    "4.jpeg",
+    "5.jpeg",
+    "6.jpeg",
+    "7.jpeg"
 ];
 const bodyColumn22 = document.querySelector(".body-column:nth-child(2) .body-column__column:nth-child(2)");
 
