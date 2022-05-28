@@ -29,32 +29,33 @@ function refresh(){
 }
 
 
-
-function handleLocation(position){
+function handleLocation(){
     const getLocal = JSON.parse(localStorage.getItem(STORAGEKEY));
     btn.addEventListener("click",refresh);
-    if(getLocal!==null){
-      const la = getLocal["lat"];
-      const ln = getLocal["lon"];
-      getData(la,ln);
-    } else{
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const location = {
-        lat,
-        lon
-      };
-      localStorage.setItem(STORAGEKEY,JSON.stringify(location));
-      getData(lat,lon);
-    }
+    const url = `${API_URL}lat=${getLocal.lat}&lon=${getLocal.lon}&appid=${API_KEY}&units=metric`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        city.innerText = data.name;
+        const temp = data.main.temp.toFixed(0);
+        const wher = data.weather[0].main;
+        const icon = data.weather[0].icon;
+        const weatherIconAdrs = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+        weather.innerText = `${wher} / ${temp}℃`;
+        weatherIcon.classList.remove("hidden");
+        weatherIcon.setAttribute("src",weatherIconAdrs);
+    });
   
   }
 
 
-
-
-function onGeoError() {
+function onGeoError(){
   alert("Can't find you. No weather for you.");
 }
 
-navigator.geolocation.getCurrentPosition(handleLocation, onGeoError);
+
+if(localStorage.getItem(STORAGEKEY) !== null){
+  handleLocation();
+}else{
+  navigator.geolocation.getCurrentPosition(handleLocation, onGeoError);
+}
