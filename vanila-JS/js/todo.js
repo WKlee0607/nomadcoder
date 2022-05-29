@@ -1,4 +1,61 @@
-const toDoForm = document.getElementById("todo-form");
+const todoForm = document.querySelector("#todo-form");
+const todoInput = document.querySelector("#todo-form input");
+const todoUl = document.querySelector("#todo-list");
+
+let DitionaryList = [];
+
+
+function deleteLi(event){
+    const li = event.target.parentElement;
+    li.remove();
+    DitionaryList = DitionaryList.filter((todo) => todo.id !== parseInt(li.id));
+    setDictionary();
+}
+
+
+function handleTodo(event){
+    event.preventDefault();
+    const valueInput = todoInput.value;
+    const toDoDictionary = {
+        id:Date.now(),
+        text:valueInput
+    }
+    todoInput.value = "";
+    DitionaryList.push(toDoDictionary);
+    paintTodo(toDoDictionary);
+    setDictionary();
+}
+
+function setDictionary(){
+    localStorage.setItem("DitionaryList",JSON.stringify(DitionaryList));
+}
+
+function paintTodo(toDoDictionary){
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    const delButn = document.createElement("button");
+    delButn.addEventListener("click",deleteLi);
+    li.id = toDoDictionary.id;
+    span.innerText = toDoDictionary.text;
+    delButn.innerText ="❌"
+    li.appendChild(span);
+    li.appendChild(delButn);
+    todoUl.appendChild(li);
+}
+
+todoForm.addEventListener("submit",handleTodo);
+
+const getLocalstorage = localStorage.getItem("DitionaryList");
+
+if(getLocalstorage !== null){
+    const paredSavedList = JSON.parse(getLocalstorage);
+    dictList = paredSavedList;
+    paredSavedList.forEach(paintTodo);
+}
+
+
+
+/* const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("input");
 const toDoList = document.getElementById("todo-list");
 
@@ -24,7 +81,7 @@ function paintToDO(newTodoObj){
     span.innerText = newTodoObj.text;
     const button = document.createElement("button");
     button.innerText = "❌";
-    button.addEventListener("click",deleteToDO);/*버튼 요소에 이 이벤트 리스너를 내포시켜주는 것임. */
+    button.addEventListener("click",deleteToDO);//버튼 요소에 이 이벤트 리스너를 내포시켜주는 것임.
     li.appendChild(span);
     li.appendChild(button);
     toDoList.appendChild(li);
@@ -53,4 +110,4 @@ if(savedToDos !== null){
     const parsedToDos = JSON.parse(savedToDos);//"["a","b"]" 이런 형태로 저장된 string을 array타입으로 바꿔서 return해주는 함수:parse
     toDos = parsedToDos;
     parsedToDos.forEach(paintToDO); //foreach: pasedToDos의 각각의 value에다가 함수를 적용시켜주는 함수:forEach = ()안에 좌측앤 item => 함수 내용 . 이런식으로 작성하면됨 //function은 event처럼 기본적으로 item이라는 변수를 기억하고 return해줌
-};
+}; */
