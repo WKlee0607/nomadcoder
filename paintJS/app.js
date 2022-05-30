@@ -91,6 +91,7 @@ function handleSaveClick(){
     link.href = image;
     link.download = "paintJS[by WK]🎨"; // download: 브라우저에게 URL을 다운로드 하라고 명령함. 이 때, 다운로드 하는 URL은 a의 href이고, download의 내용은 그 다운로드의 이름이 됨.
     link.click();//a.click() :가짜 버튼. href가 download되도록 click하여 실행한ㄷㅏ. href 값은 링크를 복사하거나 드래그할 때, 링크를 새 탭이나 새 창에서 열 때, 즐겨찾기에 추가할 때와 JavaScript를 불러오고 있거나 스크립트 오류가 발생했을 때, 아니면 비활성화했을 때 예측하지 못한 동작을 유발합니다. 또한 스크린 리더 등 보조 기술에도 잘못된 의미를 전달합니다.
+    //가짜버튼은 link가 클릭되도록 하여 href를 다운로드 되도록함. 이건 센스 영역인듯.
 }
 
 if(canvas){
