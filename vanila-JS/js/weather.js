@@ -6,8 +6,16 @@ const API_KEY = "5c29b1e2687d195e6508d0eec666a9a5";
 const API_URL = "https://api.openweathermap.org/data/2.5/weather?";
 const STORAGEKEY = "location";
 
-function getData(lat,lon) {
+function getData(position) {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+  const location = {
+    "lat":lat,
+    "lon":lon
+  }
+  localStorage.setItem(STORAGEKEY,JSON.stringify(location));
   const url = `${API_URL}lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+  btn.addEventListener("click",refresh);
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -57,5 +65,5 @@ function onGeoError(){
 if(localStorage.getItem(STORAGEKEY) !== null){
   handleLocation();
 }else{
-  navigator.geolocation.getCurrentPosition(handleLocation, onGeoError);
+  navigator.geolocation.getCurrentPosition(getData, onGeoError);
 }
