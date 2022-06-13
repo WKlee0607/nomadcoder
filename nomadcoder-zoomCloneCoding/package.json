@@ -1,0 +1,22 @@
+{
+  "_comment_": "npm init -y으로 package.json 생성함/ script & main삭제함,/ npm i nodem, 후에 npm i @babel/core @babel/cli @babel/node -D , babel.json에서 exec: server.js를 실행시킴, npm i @babel/preset-env -D 설치, npm i express, npm i pug",
+  "name": "nomadcoder-zoomclonecoding",
+  "version": "1.0.0",
+  "description": "Zoom Clone Using WebRTC and Websockets",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "comment_scripts": "nodemon만 쓰는 이유: nodemon이 호출되면 nodemon이 nodemon.json을 살펴보고 거기있는 코드를 실행할 것임.",
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "pug": "^3.0.2"
+  }
+}
