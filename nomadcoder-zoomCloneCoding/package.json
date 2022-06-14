@@ -1,5 +1,6 @@
 {
   "_comment_": "npm init -y으로 package.json 생성함/ script & main삭제함,/ npm i nodem, 후에 npm i @babel/core @babel/cli @babel/node -D , babel.json에서 exec: server.js를 실행시킴, npm i @babel/preset-env -D 설치, npm i express, npm i pug",
+  "_comment2_": "websocket으로 실시간 chat, 알림, real-time등을 만들 수 있음. http:stateless = 서버가 유저가 누구인지를 잊어버림, websocket: 손을 마주잡고 있는것처럼 연결됨. 유저를 기억함. 서버가 유적에게 말 걸 수 있음.",
   "name": "nomadcoder-zoomclonecoding",
   "version": "1.0.0",
   "description": "Zoom Clone Using WebRTC and Websockets",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "express": "^4.18.1",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "ws": "^8.8.0"
   }
 }
