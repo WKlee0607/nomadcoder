@@ -1,5 +1,5 @@
 import http from "http";
-import SocketIO, { Socket } from "socket.io";
+import SocketIO from "socket.io";
 import express from "express";
 
 
@@ -28,6 +28,7 @@ ioServer.on("connection",(backSocket) => {
     });
     backSocket.on("new_message",(msg, room, done) => {
         backSocket.to(room).emit("new_message", msg);
+        done();
     });
 });//frontend Socket과 연결.
 
