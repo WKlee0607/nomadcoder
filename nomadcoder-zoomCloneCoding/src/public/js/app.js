@@ -1,5 +1,3 @@
-import { Socket } from "socket.io";
-
 const frontSocket = io();//backend Socket과 연결됨.
 
 const welcome = document.getElementById("welcome");
@@ -20,9 +18,11 @@ function addMessage(message){
 function handleMessageSubmit(event){
     event.preventDefault();
     const input = room.querySelector("input");
+    const value = input.value;
     frontSocket.emit("new_message", input.value, roomName, () => {
-        addMessage(`You: ${input.value}`);
+        addMessage(`You: ${value}`);
     });
+    input.value = "";
 };
 
 function showRoom(){
@@ -50,4 +50,8 @@ frontSocket.on("welcome",() => {
 
 frontSocket.on("bye",() => {
     addMessage("Someone left ㅠㅠ");
+});
+
+frontSocket.on("new_message", (msg) => {
+    addMessage(msg);
 });
