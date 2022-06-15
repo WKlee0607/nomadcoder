@@ -1,41 +1,53 @@
-const messageList = document.querySelector("ul");
-const nickForm = document.querySelector("#nick");
-const messageForm = document.querySelector("#message");
-const frontSocket = new WebSocket(`ws://${window.location.host}`);//frontend의 socket등록.
+import { Socket } from "socket.io";
 
-function makeMessage(type, payload){
-    const msg = {type, payload};
-    return JSON.stringify(msg);
-}; //JSON형태로 {type:"message", payload:"input.value"} 이런 식으로 보내주는 것.
+const frontSocket = io();//backend Socket과 연결됨.
 
-frontSocket.addEventListener("open",() => {
-    console.log("Connected to Server ✅");
-});
+const welcome = document.getElementById("welcome");
+const form = welcome.querySelector("form");
+const room = document.getElementById("room");
 
-frontSocket.addEventListener("message", (message) => {
+room.hidden = true;
+
+let roomName;
+
+function addMessage(message){
+    const ul = room.querySelector("ul");
     const li = document.createElement("li");
-    li.innerText = message.data;
-    messageList.append(li);
-});
-
-frontSocket.addEventListener("close",() => {
-    console.log("Disconnected to Server ❌");
-});
-
-
-function handleSubmit(event){
-    event.preventDefault();
-    const input = messageForm.querySelector("input");
-    frontSocket.send(makeMessage("new_message", input.value));
-    input.value="";
+    li.innerText = message;
+    ul.appendChild(li);
 };
 
-function handleNickSubmit(event){
+function handleMessageSubmit(event){
     event.preventDefault();
-    const input = nickForm.querySelector("input");
-    frontSocket.send(makeMessage("nickname",input.value));
-    input.value="";
+    const input = room.querySelector("input");
+    frontSocket.emit("new_message", input.value, roomName, () => {
+        addMessage(`You: ${input.value}`);
+    });
 };
 
-messageForm.addEventListener("submit",handleSubmit);
-nickForm.addEventListener("submit",handleNickSubmit);
+function showRoom(){
+    welcome.hidden = true;
+    room.hidden = false;
+    const h3 = room.querySelector("h3");
+    h3.innerText = `Room: ${roomName}`;
+    const form = room.querySelector("form");
+    form.addEventListener("submit",handleMessageSubmit);
+};
+
+function handleRoomSubmit(event){
+    event.preventDefault();
+    const input = form.querySelector("input");
+    frontSocket.emit("enter_room", input.value, showRoom);//Websocket(WS)에서의 send와 같은 역할인 거 같음. WS에서는 object를 string형태로 보냈어야 했는데, SocketIO에서는 그럴 필요없이 바로 object로 보낼 수 있음, 또한 3번쨰 arg로 callback fn이 들어가는데 이 fn도 서버(backend)에서 인수로 받아 서버에서 제어 가능  물론 실행은 frontend에서 함!
+    roomName = input.value;
+    input.value = "";
+};
+
+form.addEventListener("submit",handleRoomSubmit);
+
+frontSocket.on("welcome",() => {
+    addMessage("Someone joined!");
+});
+
+frontSocket.on("bye",() => {
+    addMessage("Someone left ㅠㅠ");
+});
