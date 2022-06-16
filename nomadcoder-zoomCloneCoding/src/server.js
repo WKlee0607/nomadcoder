@@ -15,23 +15,24 @@ const httpServer = http.createServer(app);//http 서버 만들기.
 const ioServer = SocketIO(httpServer);//SocketIO로 서버를 만든 것임. 이전처럼 http위에 서버를 덮어썼지만.
 
 ioServer.on("connection",(backSocket) => {
+    backSocket["nickname"] = "Anonymous";
     backSocket.onAny((event) => {
         console.log(`Socket Event: ${event}`);
     });
     backSocket.on("enter_room", (roomName, done) => {
         backSocket.join(roomName);
         done();
-        backSocket.to(roomName).emit("welcome");
+        backSocket.to(roomName).emit("welcome", backSocket.nickname);
     });
     backSocket.on("disconnecting",() => {
-        backSocket.rooms.forEach((room) => backSocket.to(room).emit("bye"));//backSocket.rooms: {"id~~", "roomName"}
+        backSocket.rooms.forEach((room) => backSocket.to(room).emit("bye", backSocket.nickname));//backSocket.rooms: {"id~~", "roomName"}
     });
     backSocket.on("new_message",(msg, room, done) => {
-        backSocket.to(room).emit("new_message", msg);
+        backSocket.to(room).emit("new_message", `${backSocket.nickname}: ${msg}`);
         done();
     });
-});//frontend Socket과 연결.
-
+    backSocket.on("nickname",(nickname) => backSocket["nickname"] = nickname);
+});
 /*const wss = new WebSocket.Server({ server });//ws 서버 만들기 -> websocket을 만들 때 http위에 쌓아올리면서 만들었음.
 
 const sockets = [];//fakeDB
