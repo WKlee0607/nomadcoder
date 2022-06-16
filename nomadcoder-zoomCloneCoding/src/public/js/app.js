@@ -53,14 +53,31 @@ function handleRoomSubmit(event){
 form.addEventListener("submit",handleRoomSubmit);
 roomNameForm.addEventListener("submit",handleNicknameSubmit);
 
-frontSocket.on("welcome",(user) => {
+frontSocket.on("welcome",(user, newCount) => {
+    const h3 = room.querySelector("h3");
+    h3.innerText = `Room: ${roomName} (${newCount})`;
     addMessage(`${user} joined!`);
 });
 
-frontSocket.on("bye",(left) => {
+frontSocket.on("bye",(left, newCount) => {
+    const h3 = room.querySelector("h3");
+    h3.innerText = `Room: ${roomName} (${newCount})`;
     addMessage(`${left} left ㅠㅠ`);
 });
 
 frontSocket.on("new_message", (msg) => {
     addMessage(msg);
+});
+
+frontSocket.on("room_change", (publicRooms) => {
+    const roomList = welcome.querySelector("ul");
+    roomList.innerHTML = "";
+    if(publicRooms.length === 0){
+        return;
+    };
+    publicRooms.forEach((room) => {
+        const li = document.createElement("li");
+        li.innerText = room;
+        roomList.append(li);
+    });
 });
