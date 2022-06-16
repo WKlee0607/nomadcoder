@@ -1,5 +1,5 @@
 import http from "http";
-import { Server } from "socket.io";
+import SocketIO from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
 import express from "express";
 
@@ -13,79 +13,7 @@ app.get("/", (_, res) => res.render("home"));
 app.get("/*", (_, res) => res.redirect("/"));// -> catchall : 어떤 url을 가든 "/"로 돌아오게 만들어 home.pug만 볼 수 있도록 하기. 이번 프로젝트에서는 하나의 url만 사용할 것이기 때문에 이렇게 처리해줌.
 
 const httpServer = http.createServer(app);//http 서버 만들기.
-const ioServer = new Server(httpServer, {
-    cors: {
-      origin: ["https://admin.socket.io"],
-      credentials: true
-    },
-  });//SocketIO로 서버를 만든 것임. 이전처럼 http위에 서버를 덮어썼지만.
+const ioServer = SocketIO(httpServer);
 
-instrument(ioServer, {
-    auth: false
-});
-
-function publicRooms(){
-    const {sockets : {adapter: {sids, rooms}}} = ioServer;
-    /* 위의 콘드는 밑의 두 줄을 풀어쓴 거. 	
-	const sids = ioServer.sockets.adapter.sids; 
-    const rooms = ioServer.sockets.adapter.rooms;*/
-    const publicRooms = [];
-    rooms.forEach((_/*value자리임*/, key) => {
-        if(sids.get(key) === undefined){
-            publicRooms.push(key);
-        }
-    });
-    return publicRooms;
-};// rooms에서 sids(개인방)을 빼주는 작업임.
-
-function countRoom(roomName){
-    return ioServer.sockets.adapter.rooms.get(roomName)?.size
-};
-
-ioServer.on("connection",(backSocket) => {
-    backSocket["nickname"] = "Anonymous";
-    backSocket.onAny((event) => {
-        console.log(ioServer.sockets.adapter);
-        console.log(`Socket Event: ${event}`);
-    });
-    backSocket.on("enter_room", (roomName, done) => {
-        backSocket.join(roomName);
-        done();
-        backSocket.to(roomName).emit("welcome", backSocket.nickname, countRoom(roomName));
-        ioServer.sockets.emit("room_change", publicRooms());
-    });
-    backSocket.on("disconnecting",() => {
-        backSocket.rooms.forEach((room) => backSocket.to(room).emit("bye", backSocket.nickname, countRoom(room) -1 ));//backSocket.rooms: {"id~~", "roomName"}
-    });
-    backSocket.on("disconnect", () => {
-        ioServer.sockets.emit("room_change", publicRooms());
-    });
-    backSocket.on("new_message",(msg, room, done) => {
-        backSocket.to(room).emit("new_message", `${backSocket.nickname}: ${msg}`);
-        done();
-    });
-    backSocket.on("nickname",(nickname) => backSocket["nickname"] = nickname);
-});
-/*const wss = new WebSocket.Server({ server });//ws 서버 만들기 -> websocket을 만들 때 http위에 쌓아올리면서 만들었음.
-
-const sockets = [];//fakeDB
-
-wss.on("connection",(backSocket) => {// on: backend(server)의 eventListener임 -> 브라우저의 event에 귀 기울임
-    sockets.push(backSocket);//fakeDB에 연결된 socket(브라우저 혹은 유저) 넣어주기
-    backSocket["nickname"] = "Anonymous"; //아직 닉네임 정하지 않은 사람.
-    console.log("Connected to Browser ✅");
-    backSocket.on("close", () => console.log("Disconnected to the Brower ❌"));//Browser 연결이 끊기면 알려주는 콘솔창
-    
-    backSocket.on("message",(msg) =>{
-        const message = JSON.parse(msg);
-        switch (message.type){
-            case "new_message":
-                sockets.forEach((aSocket) => {aSocket.send(`${backSocket.nickname}: ${(message.payload).toString()}`)});
-            case "nickname":
-                backSocket["nickname"] = message.payload;// socket에 닉네임 넣어주기
-        };
-    });
-}); */
-
-const handleListen = () => console.log(`Listening on http://localhost:3000, ws://localhost:3000`);
+const handleListen = () => console.log(`Listening on http://localhost:3000`);
 httpServer.listen(3000,handleListen);
