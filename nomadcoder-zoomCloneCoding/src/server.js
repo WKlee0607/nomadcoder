@@ -1,5 +1,6 @@
 import http from "http";
-import SocketIO from "socket.io";
+import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 import express from "express";
 
 
@@ -12,20 +13,52 @@ app.get("/", (_, res) => res.render("home"));
 app.get("/*", (_, res) => res.redirect("/"));// -> catchall : 어떤 url을 가든 "/"로 돌아오게 만들어 home.pug만 볼 수 있도록 하기. 이번 프로젝트에서는 하나의 url만 사용할 것이기 때문에 이렇게 처리해줌.
 
 const httpServer = http.createServer(app);//http 서버 만들기.
-const ioServer = SocketIO(httpServer);//SocketIO로 서버를 만든 것임. 이전처럼 http위에 서버를 덮어썼지만.
+const ioServer = new Server(httpServer, {
+    cors: {
+      origin: ["https://admin.socket.io"],
+      credentials: true
+    },
+  });//SocketIO로 서버를 만든 것임. 이전처럼 http위에 서버를 덮어썼지만.
+
+instrument(ioServer, {
+    auth: false
+});
+
+function publicRooms(){
+    const {sockets : {adapter: {sids, rooms}}} = ioServer;
+    /* 위의 콘드는 밑의 두 줄을 풀어쓴 거. 	
+	const sids = ioServer.sockets.adapter.sids; 
+    const rooms = ioServer.sockets.adapter.rooms;*/
+    const publicRooms = [];
+    rooms.forEach((_/*value자리임*/, key) => {
+        if(sids.get(key) === undefined){
+            publicRooms.push(key);
+        }
+    });
+    return publicRooms;
+};// rooms에서 sids(개인방)을 빼주는 작업임.
+
+function countRoom(roomName){
+    return ioServer.sockets.adapter.rooms.get(roomName)?.size
+};
 
 ioServer.on("connection",(backSocket) => {
     backSocket["nickname"] = "Anonymous";
     backSocket.onAny((event) => {
+        console.log(ioServer.sockets.adapter);
         console.log(`Socket Event: ${event}`);
     });
     backSocket.on("enter_room", (roomName, done) => {
         backSocket.join(roomName);
         done();
-        backSocket.to(roomName).emit("welcome", backSocket.nickname);
+        backSocket.to(roomName).emit("welcome", backSocket.nickname, countRoom(roomName));
+        ioServer.sockets.emit("room_change", publicRooms());
     });
     backSocket.on("disconnecting",() => {
-        backSocket.rooms.forEach((room) => backSocket.to(room).emit("bye", backSocket.nickname));//backSocket.rooms: {"id~~", "roomName"}
+        backSocket.rooms.forEach((room) => backSocket.to(room).emit("bye", backSocket.nickname, countRoom(room) -1 ));//backSocket.rooms: {"id~~", "roomName"}
+    });
+    backSocket.on("disconnect", () => {
+        ioServer.sockets.emit("room_change", publicRooms());
     });
     backSocket.on("new_message",(msg, room, done) => {
         backSocket.to(room).emit("new_message", `${backSocket.nickname}: ${msg}`);
