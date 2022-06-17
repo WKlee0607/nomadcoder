@@ -15,5 +15,18 @@ app.get("/*", (_, res) => res.redirect("/"));// -> catchall : 어떤 url을 가�
 const httpServer = http.createServer(app);//http 서버 만들기.
 const ioServer = SocketIO(httpServer);
 
+ioServer.on("connection",(backSocket) => {
+    backSocket.on("join_room", (roomName) =>{
+        backSocket.join(roomName);
+        backSocket.to(roomName).emit("welcome");
+    });
+    backSocket.on("offer",(offer, roomName) => {
+        backSocket.to(roomName).emit("offer", offer);
+    });
+    backSocket.on("answer",(answer, roomName) => {
+        backSocket.to(roomName).emit("answer",answer);
+    });
+});
+
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
 httpServer.listen(3000,handleListen);
