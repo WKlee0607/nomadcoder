@@ -1,13 +1,20 @@
+import { Socket } from "socket.io";
+
 const frontSocket = io();//backend Socket과 연결됨.
 
 const myFace = document.getElementById("myFace");
 const muteBtn = document.getElementById("mute");
 const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
+const call = document.getElementById("call");
+
+call.hidden = true;
 
 let myStream;
 let muted = false;
 let cameraOff = false;
+let roomName;
+let myPeerConnection;
 
 async function getCameras(){
     try{
@@ -52,7 +59,6 @@ async function getMedia(deviceId){
     }
 };
 
-getMedia();
 
 function handleMuteClick(){
     //console.log(myStream.getAudioTracks());//-> track정보(inspect) 제공
@@ -84,3 +90,56 @@ async function handleCameraChange(){
 muteBtn.addEventListener("click", handleMuteClick);
 cameraBtn.addEventListener("click", handleCameraClick);
 camerasSelect.addEventListener("input", handleCameraChange);
+
+
+//Welcome Form (join a room)
+
+const welcome = document.getElementById("welcome");
+const welcomeFoam = welcome.querySelector("form");
+
+async function initCall(){
+    welcome.hidden = true;
+    call.hidden = false;
+    await getMedia();
+    makeConnection();
+}
+
+async function handleWelcomSubmit(event){
+    event.preventDefault();
+    const input = welcomeFoam.querySelector("input");
+    await initCall();//-> 원래 join_room emit에 있었음. 근데 유저가 방에 들어오고 이 함수가 실행되면 처리 속도가 너무 빨라서 뒤에 들어온 손님 유저가 offer를 받지 못해서 이렇게 밖으로 빼줌.
+    frontSocket.emit("join_room", input.value);
+    roomName = input.value;
+    input.value="";
+}
+
+welcomeFoam.addEventListener("submit", handleWelcomSubmit);
+
+//Socket Code
+
+frontSocket.on("welcome", async () => {
+    const offer = await myPeerConnection.createOffer();//3단계 : offer(초대코드) 만들기 -> 이미 들어와있던 사람에게만 작용하는 코드임.
+    myPeerConnection.setLocalDescription(offer);//4단계: 주인장 쪽 콘센트 연결. offer로 연결 구성. -> 이미 들어와있던 사람에게만 작용하는 코드임.
+    //console.log(offer);
+    frontSocket.emit("offer",offer,roomName);//5단계: offer 보내기
+});// -> 주인쪽 브라우저에서 돌아가는 코드
+
+frontSocket.on("offer", async(offer) => {//6단계: offer받기
+    myPeerConnection.setRemoteDescription(offer);//7단계: 손님쪽 remote 콘센트 연결
+    const answer = await myPeerConnection.createAnswer();// 8단계: answer 생성.
+    //console.log(answer);
+    myPeerConnection.setLocalDescription(offer);//9단계 : 손님쪽 local 콘센트 연결.
+    frontSocket.emit("answer", answer, roomName);//10단계 : 주인장한테 answer보내기
+});// -> 손님쪽 브라우저에서 돌아가는 코드
+
+frontSocket.on("answer",(answer) => {
+    myPeerConnection.setRemoteDescription(answer);//11단계 : 주인장 remote연결
+});
+
+//RTC Code
+
+function makeConnection(){
+    myPeerConnection = new RTCPeerConnection();// 1단계: 두 브라우저 사이에 peer connection 만듦
+    //console.log(myStream.getTracks()); //-> video & Audio Tracks가 담겨있음. 즉 우리 stream의 데이터임.
+    myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));//2단계 : 내 stream데이터를 peer연결에 넣어주는 것임
+}
