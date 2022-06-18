@@ -1,4 +1,4 @@
-import { Socket } from "socket.io";
+import io from "socket.io";
 
 const frontSocket = io();//backend Socket과 연결됨.
 
@@ -136,10 +136,27 @@ frontSocket.on("answer",(answer) => {
     myPeerConnection.setRemoteDescription(answer);//11단계 : 주인장 remote연결
 });
 
+frontSocket.on("ice", candidate => {
+    myPeerConnection.addIceCandidate(candidate);//14단계 : 두 브라우저가 보낸 candidate 서로 받기
+})
+
 //RTC Code
 
 function makeConnection(){
     myPeerConnection = new RTCPeerConnection();// 1단계: 두 브라우저 사이에 peer connection 만듦
+    myPeerConnection.addIceCandidate("icecandidate", handleIce);//12단계 : IceCandidate 생성
+    myPeerConnection.addEventListener("addStream", handleAddStream);//15 단계: 상대방 stream add하기 및 media 불러오기
     //console.log(myStream.getTracks()); //-> video & Audio Tracks가 담겨있음. 즉 우리 stream의 데이터임.
     myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));//2단계 : 내 stream데이터를 peer연결에 넣어주는 것임
+}
+function handleIce(data){
+    //console.log(data); -> candidate찾으삼
+    frontSocket.emit("ice", data.candidate , roomName);// 13단계 : IceCandidate를 다른 브라우저로 보내기 위해 서버로 보내기 -> 두 브라우저에게 동시에 적용되는 코드임. 동시에 두 브라우저가 서로에게 data.candidate를 보냄
+}
+
+function handleAddStream(data){//15 단계: 상대방 stream add하기 및 media 불러오기
+    //console.log(data.stream);// <- 상대 브라우저 stream
+    //console.log(myStream);// <- 내 stream
+    const peerFace = document.getElementById("peerFace");
+    peerFace.srcObject = data.stream;   
 }
