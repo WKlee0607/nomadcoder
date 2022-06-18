@@ -85,6 +85,12 @@ function handleCameraClick(){
 
 async function handleCameraChange(){
     await getMedia(camerasSelect.value);
+    if(myPeerConnection){
+        const videoTrack = myStream.getVideoTracks()[0];//이미 이 함수 첫째줄에서 새로운 stream으로 바뀌었기 떄문에 여기서 그냥 videoTrack을 가져와도 바뀐 track을 가져올 것임.
+        //console.log(myPeerConnection.getSenders()); -> RTCRtpSender에 관한 data가 있음. 여기서 track에서 kind:video인 Sender를 보면 됨,
+        const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === "video");//peerConnection에서 Send하고 있는 정보의 videoTrack부분을 가져옴.
+        videoSender.replaceTrack(videoTrack);//가져온 Sender의 viedoTrack부분을 새로운 Stream의 비디오 트랙으로 변경해줌
+    }
 }
 
 muteBtn.addEventListener("click", handleMuteClick);
@@ -147,7 +153,7 @@ function makeConnection(){
     myPeerConnection.addIceCandidate("icecandidate", handleIce);//12단계 : IceCandidate 생성
     myPeerConnection.addEventListener("addStream", handleAddStream);//15 단계: 상대방 stream add하기 및 media 불러오기
     //console.log(myStream.getTracks()); //-> video & Audio Tracks가 담겨있음. 즉 우리 stream의 데이터임.
-    myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));//2단계 : 내 stream데이터를 peer연결에 넣어주는 것임
+    myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));//2단계 : 내 stream데이터를 peer연결에 넣어주는 것임 // 새로운 장치를 사용하면 Stream을 새로 바꾸는데, 여기서도 새로운 Stream을 보냄.
 }
 function handleIce(data){
     //console.log(data); -> candidate찾으삼
