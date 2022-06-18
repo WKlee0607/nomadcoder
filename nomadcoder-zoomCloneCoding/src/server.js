@@ -26,6 +26,9 @@ ioServer.on("connection",(backSocket) => {
     backSocket.on("answer",(answer, roomName) => {
         backSocket.to(roomName).emit("answer",answer);
     });
+    backSocket.on("ice" ,(cnadidate, roomName) => {
+        backSocket.to(roomName).emit("ice", cnadidate);
+    })
 });
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
