@@ -159,7 +159,7 @@ function makeConnection(){
         ],
     });// 1단계: 두 브라우저 사이에 peer connection 만듦
     myPeerConnection.addEventListener("icecandidate", handleIce);//12단계 : IceCandidate 생성
-    myPeerConnection.addEventListener("track", handleTrack);//15 단계: 상대방 stream add하기 및 media 불러오기
+    myPeerConnection.addEventListener("track", handleTrack);//15 단계: 상대방 track 변경되면 듣기. -> 이건 폰으로 할 때만 적용 되는듯(?)
     //console.log(myStream.getTracks()); //-> video & Audio Tracks가 담겨있음. 즉 우리 stream의 데이터임.
     myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));//2단계 : 내 stream데이터를 peer연결에 넣어주는 것임 // 새로운 장치를 사용하면 Stream을 새로 바꾸는데, 여기서도 새로운 Stream을 보냄.
 }
@@ -170,7 +170,7 @@ function handleIce(data){
 }
 
 function handleTrack(data){//15 단계: 상대방 stream add하기 및 media 불러오기
-    //console.log(data.stream);// <- 상대 브라우저 stream
+    console.log(data.streams);// <- 상대 브라우저 stream
     //console.log(myStream);// <- 내 stream
     const peerFace = document.getElementById("peerFace");
     peerFace.srcObject = data.streams[0];   
