@@ -1,5 +1,3 @@
-import io from "socket.io";
-
 const frontSocket = io();//backend Socket과 연결됨.
 
 const myFace = document.getElementById("myFace");
