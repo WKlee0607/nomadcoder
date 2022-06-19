@@ -125,35 +125,41 @@ frontSocket.on("welcome", async () => {
     const offer = await myPeerConnection.createOffer();//3단계 : offer(초대코드) 만들기 -> 이미 들어와있던 사람에게만 작용하는 코드임.
     myPeerConnection.setLocalDescription(offer);//4단계: 주인장 쪽 콘센트 연결. offer로 연결 구성. -> 이미 들어와있던 사람에게만 작용하는 코드임.
     //console.log(offer);
+    console.log("sent the offer");
     frontSocket.emit("offer",offer,roomName);//5단계: offer 보내기
 });// -> 주인쪽 브라우저에서 돌아가는 코드
 
-frontSocket.on("offer", async(offer) => {//6단계: offer받기
+frontSocket.on("offer", async (offer) => {//6단계: offer받기
+    console.log("received the offer");
     myPeerConnection.setRemoteDescription(offer);//7단계: 손님쪽 remote 콘센트 연결
     const answer = await myPeerConnection.createAnswer();// 8단계: answer 생성.
     //console.log(answer);
-    myPeerConnection.setLocalDescription(offer);//9단계 : 손님쪽 local 콘센트 연결.
+    myPeerConnection.setLocalDescription(answer);//9단계 : 손님쪽 local 콘센트 연결.
     frontSocket.emit("answer", answer, roomName);//10단계 : 주인장한테 answer보내기
+    console.log("sent the answer");
 });// -> 손님쪽 브라우저에서 돌아가는 코드
 
 frontSocket.on("answer",(answer) => {
+    console.log("received the answer");
     myPeerConnection.setRemoteDescription(answer);//11단계 : 주인장 remote연결
 });
 
 frontSocket.on("ice", candidate => {
+    console.log("received candidate");
     myPeerConnection.addIceCandidate(candidate);//14단계 : 두 브라우저가 보낸 candidate 서로 받기
-})
+});
 
 //RTC Code
 
 function makeConnection(){
     myPeerConnection = new RTCPeerConnection();// 1단계: 두 브라우저 사이에 peer connection 만듦
-    myPeerConnection.addIceCandidate("icecandidate", handleIce);//12단계 : IceCandidate 생성
-    myPeerConnection.addEventListener("addStream", handleAddStream);//15 단계: 상대방 stream add하기 및 media 불러오기
+    myPeerConnection.addEventListener("icecandidate", handleIce);//12단계 : IceCandidate 생성
+    myPeerConnection.addEventListener("addstream", handleAddStream);//15 단계: 상대방 stream add하기 및 media 불러오기
     //console.log(myStream.getTracks()); //-> video & Audio Tracks가 담겨있음. 즉 우리 stream의 데이터임.
     myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));//2단계 : 내 stream데이터를 peer연결에 넣어주는 것임 // 새로운 장치를 사용하면 Stream을 새로 바꾸는데, 여기서도 새로운 Stream을 보냄.
 }
 function handleIce(data){
+    console.log("sent candidate");
     //console.log(data); -> candidate찾으삼
     frontSocket.emit("ice", data.candidate , roomName);// 13단계 : IceCandidate를 다른 브라우저로 보내기 위해 서버로 보내기 -> 두 브라우저에게 동시에 적용되는 코드임. 동시에 두 브라우저가 서로에게 data.candidate를 보냄
 }
