@@ -152,9 +152,14 @@ frontSocket.on("ice", candidate => {
 //RTC Code
 
 function makeConnection(){
-    myPeerConnection = new RTCPeerConnection();// 1단계: 두 브라우저 사이에 peer connection 만듦
+    myPeerConnection = new RTCPeerConnection({
+        iceServers:[
+            { urls: "stun:stun.stunprotocol.org:3478"},//STUN server추가
+            { urls: "stun:stun.l.google.com:19302"},//STUN server추가
+        ],
+    });// 1단계: 두 브라우저 사이에 peer connection 만듦
     myPeerConnection.addEventListener("icecandidate", handleIce);//12단계 : IceCandidate 생성
-    myPeerConnection.addEventListener("addstream", handleAddStream);//15 단계: 상대방 stream add하기 및 media 불러오기
+    myPeerConnection.addEventListener("track", handleTrack);//15 단계: 상대방 stream add하기 및 media 불러오기
     //console.log(myStream.getTracks()); //-> video & Audio Tracks가 담겨있음. 즉 우리 stream의 데이터임.
     myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));//2단계 : 내 stream데이터를 peer연결에 넣어주는 것임 // 새로운 장치를 사용하면 Stream을 새로 바꾸는데, 여기서도 새로운 Stream을 보냄.
 }
@@ -164,9 +169,9 @@ function handleIce(data){
     frontSocket.emit("ice", data.candidate , roomName);// 13단계 : IceCandidate를 다른 브라우저로 보내기 위해 서버로 보내기 -> 두 브라우저에게 동시에 적용되는 코드임. 동시에 두 브라우저가 서로에게 data.candidate를 보냄
 }
 
-function handleAddStream(data){//15 단계: 상대방 stream add하기 및 media 불러오기
+function handleTrack(data){//15 단계: 상대방 stream add하기 및 media 불러오기
     //console.log(data.stream);// <- 상대 브라우저 stream
     //console.log(myStream);// <- 내 stream
     const peerFace = document.getElementById("peerFace");
-    peerFace.srcObject = data.stream;   
+    peerFace.srcObject = data.streams[0];   
 }
