@@ -13,6 +13,7 @@ let muted = false;
 let cameraOff = false;
 let roomName;
 let myPeerConnection;
+let myDataChannel;
 
 async function getCameras(){
     try{
@@ -122,6 +123,10 @@ welcomeFoam.addEventListener("submit", handleWelcomSubmit);
 //Socket Code
 
 frontSocket.on("welcome", async () => {
+    myDataChannel = myPeerConnection.createDataChannel("chat");//data cahnnel 생성
+    myDataChannel.addEventListener("message",(event) => console.log(event));//data chaanel에 대한 이벤트 리스너
+    console.log("made data channel");//다른 peer에는 data channel을 만들 필요가 없음. 다른 peer는 data channel이 있을 때, 이벤트 리스너만 만들어주면됨.
+
     const offer = await myPeerConnection.createOffer();//3단계 : offer(초대코드) 만들기 -> 이미 들어와있던 사람에게만 작용하는 코드임.
     myPeerConnection.setLocalDescription(offer);//4단계: 주인장 쪽 콘센트 연결. offer로 연결 구성. -> 이미 들어와있던 사람에게만 작용하는 코드임.
     //console.log(offer);
@@ -130,6 +135,11 @@ frontSocket.on("welcome", async () => {
 });// -> 주인쪽 브라우저에서 돌아가는 코드
 
 frontSocket.on("offer", async (offer) => {//6단계: offer받기
+    myPeerConnection.addEventListener("datachannel",(event) => {
+        myDataChannel = event.channel;//data chaanel 저장, offer받는 쪽의 data chaanel 정의(?)
+        myDataChannel.addEventListener("message", console.log);//이벤트 리스너 추가
+    });
+
     console.log("received the offer");
     myPeerConnection.setRemoteDescription(offer);//7단계: 손님쪽 remote 콘센트 연결
     const answer = await myPeerConnection.createAnswer();// 8단계: answer 생성.
