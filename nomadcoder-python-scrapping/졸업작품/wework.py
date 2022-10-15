@@ -1,11 +1,6 @@
 """
-These are the URLs that will give you remote jobs for the word 'python'
-
-
 
 https://remoteok.io/remote-dev+python-jobs
-
-Good luck!
 """
 import requests
 import csv
