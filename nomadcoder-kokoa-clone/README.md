@@ -1,3 +1,3 @@
-# Kokoa clone 2022 update
+# Kakao Talk made by just only Html and Css, not by JS
 
-HTML & CSS are so much fun!
+This is for praticing Html and Css.
