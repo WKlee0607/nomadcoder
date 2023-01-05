@@ -1,0 +1,71 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <title>Remote Jobs</title>
+    <style>
+      body{
+        background-color: white;
+      }
+      .titles{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        text-align:center;
+      }
+      .subtitle{
+        display:flex;
+        flex-direction:row;
+        justify-content:center;
+      }
+      .subtitle h4{
+        margin:0px 10px;
+        border:1px solid rgba(0,0,0,0.8);
+        border-radius:80%;
+      }
+      .content{
+        display:flex;
+        padding:80px 200px;
+        flex-direction:column;
+        height:150px;
+        justify-content:space-between;
+        font-weight:bold;
+      }
+      .title{
+        font-size:25px;
+        text-align:left;
+      }
+      .company{
+        font-size:20px;
+      }
+      .apply{
+        transition:0.4s;
+        width:100px;
+        font-size:18px;
+      }
+      .apply:hover{
+        font-size:20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class=titles>
+      <div>
+        <h1>Remote Jobs</h1>
+        <h3>{{resultNumber}} {{SearchingBy}} jobs found</h3>
+      </div>
+      <div class=subtitle>
+        <h4><a href="/export?word={{SearchingBy}}">Export to CSV</a></h4>
+        <h4 class="goback"><a href="/">go back</a></h4>
+      </div>
+    </div>
+    <section>
+        {% for job in jobs %}
+          <div class=content>
+            <span class=title>[Title]: {{job.title}}</span>
+            <span class=company>[Company]: {{job.company}}</span>
+            <a href ="{{job.link}}" target="_balnk" class = apply>Apply Job</a>
+          </div>
+        {% endfor %}
+    </section>
+  </body>
+</html>
