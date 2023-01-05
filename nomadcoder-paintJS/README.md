@@ -1,1 +1,1 @@
-Painting Board made with VanillaJS
+# Painting Board made with VanillaJS
