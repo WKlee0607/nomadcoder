@@ -1,4 +1,4 @@
-/*import http from "http";
+import http from "http";
 import { Server } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
 import express from "express";
@@ -69,4 +69,4 @@ ioServer.on("connection",(backSocket) => {
 
 
 const handleListen = () => console.log(`Listening on http://localhost:3000, ws://localhost:3000`);
-httpServer.listen(3000,handleListen);*/
+httpServer.listen(3000,handleListen);
