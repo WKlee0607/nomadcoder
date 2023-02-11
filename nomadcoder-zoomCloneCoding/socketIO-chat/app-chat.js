@@ -1,4 +1,4 @@
-/*const frontSocket = io();//backend Socket과 연결됨.
+const frontSocket = io();//backend Socket과 연결됨.
 
 const welcome = document.getElementById("welcome");
 const form = welcome.querySelector("form");
@@ -80,4 +80,4 @@ frontSocket.on("room_change", (publicRooms) => {
         li.innerText = room;
         roomList.append(li);
     });
-});*/
+});
